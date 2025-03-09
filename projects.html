@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Projects of Ghaida Alruwais">
+    <title>Projects - Ghaida Alruwais Portfolio</title>
+    <link rel="stylesheet" href="styles.css"> 
+</head>
+<body>
+    <header>
+        <nav class="mainNavBar">
+            <ul class ="mainLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="experience.html">Experience</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html">Contact Me</a>
+                </li>
+                <li>
+                    <img
+                        id="modeToggle"
+                        class="icon color-icon"
+                        src="./theme_dark.png"
+                        src-light="./theme_light.png"
+                        src-dark="./theme_dark.png"
+                        alt="the theme of the website"
+                    />
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <section class="video-section">
+        <div class="videoBackground">
+            <video id="backgroundVideo" autoplay muted loop playsinline aria-hidden="true">
+                <source id="videoSource" src="videoOverlayPersonalPor.mp4" type="video/mp4">
+            </video>
+        </div>
+        <section class="video-overlay">
+            <p>This part is still under development as it needs JS</p>
+            <p>for now it is used to showcase random images as images hsowcasing projects will be used later &darr;</p>
+        </section>
+    </section>
+    <main class="projects">
+
+        <article class="project">
+            <img src="matchaBowl.jpg" alt="A bowl of matcha tea on a wooden table" loading="lazy">
+            <h3>Matcha Experience</h3>
+            <p>&hearts;</p>
+        </article>
+
+        <article class="project">
+            <img src="publicTransport.jpg" alt="A  public transportation system" loading="lazy">
+            <h3>Public Transport</h3>
+            <p>&hearts;</p>
+        </article>
+
+        <article class="project">
+            <img src="space.jpg" alt="A stunning view of space" loading="lazy">
+            <h3>Exploring Space</h3>
+            <p>&hearts;</p>
+        </article>
+       
+        
+    </main>
+<script src="./script.js"></script>
+</body>
