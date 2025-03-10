@@ -54,6 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const projectContainer = document.getElementById("project-container");
     const loadLocalBtn = document.getElementById("loadLocal");
     const loadRemoteBtn = document.getElementById("loadRemote");
+    let localBackup = JSON.parse(localStorage.getItem("projects")) || [];
 
     //replace
     const JSONBIN_ID = "67cd2979ad19ca34f818fd0a";
@@ -103,6 +104,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     customElements.define("project-card", ProjectCard);
 
+    function updateLocalBackup() {
+        localBackup = JSON.parse(localStorage.getItem("projects")) || [];
+    }
+
     function loadProjects(data) {
         if (!Array.isArray(data)) {
             console.error("Error: Expected an array but got", data);
@@ -125,8 +130,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     loadLocalBtn.addEventListener("click", function() {
-        let localData = JSON.parse(localStorage.getItem("projects")) || [];
-        loadProjects(localData);
+        updateLocalBackup();
+        if (localBackup.length === 0) {
+            alert("No projects available. Add projects from Manage Projects.");
+        } else {
+            loadProjects(localBackup);
+        }
     });
 
     loadRemoteBtn.addEventListener("click", function() {
@@ -142,20 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error("Error: Expected an array but got", remoteProjects);
                 return;
             }
-            let localProjects = JSON.parse(localStorage.getItem("projects")) || [];
-
-            const projectMap = new Map(remoteProjects.map(p => [p.title, p]));
-
-            // Adding if they don't already exist
-            localProjects.forEach(rp => {
-                if (!projectMap.has(rp.title)) {
-                    projectMap.set(rp.title, rp);
-                }
-            });
-            const mergedProjects = Array.from(projectMap.values());
-
-            localStorage.setItem("projects", JSON.stringify(mergedProjects));
-            loadProjects(mergedProjects);
+            loadProjects(remoteProjects);
         })
         .catch(error => console.error("Error fetching remote data:", error));
     });

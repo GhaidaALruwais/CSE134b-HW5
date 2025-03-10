@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const updateBtn = document.getElementById("update");
     const deleteBtn = document.getElementById("delete");
 
+
     function loadProjects() {
         projectList.innerHTML = "";
         const projects = JSON.parse(localStorage.getItem("projects")) || [];
