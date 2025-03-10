@@ -56,8 +56,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const loadRemoteBtn = document.getElementById("loadRemote");
 
     //replace
-    const JSONBIN_ID = "BIN_ID_HERE";
-    const JSONBIN_API_URL = `url`;
+    const JSONBIN_ID = "67cd2979ad19ca34f818fd0a";
+    const JSONBIN_API_URL = `https://api.jsonbin.io/v3/b/67cd2979ad19ca34f818fd0a`;
 
     class ProjectCard extends HTMLElement {
         constructor() {
@@ -131,16 +131,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
     loadRemoteBtn.addEventListener("click", function() {
         fetch(JSONBIN_API_URL, {
-            headers: { "X-Master-Key": "API_KEY" }  //replace
+            headers: { "X-Master-Key": "$2a$10$K5renhiXAbYvSZsHP4QAlutyXiUNMw0623LSdq9TNxDmvNS/71qlu" }  //replace
         })
         .then(response => response.json())
         .then(data => {
-            if (!Array.isArray(data.record)) {
-                console.error("Invalid data format", data);
+            console.log("Raw JSONBin Response:", data); 
+            const remoteProjects = data.record?.projects; 
+
+            if (!Array.isArray(remoteProjects)) {
+                console.error("Error: Expected an array but got", remoteProjects);
                 return;
             }
-            saveProjectsToLocalStorage(data.record);
-            loadProjects(data.record);
+            let localProjects = JSON.parse(localStorage.getItem("projects")) || [];
+
+            const projectMap = new Map(remoteProjects.map(p => [p.title, p]));
+
+            // Adding if they don't already exist
+            localProjects.forEach(rp => {
+                if (!projectMap.has(rp.title)) {
+                    projectMap.set(rp.title, rp);
+                }
+            });
+            const mergedProjects = Array.from(projectMap.values());
+
+            localStorage.setItem("projects", JSON.stringify(mergedProjects));
+            loadProjects(mergedProjects);
         })
         .catch(error => console.error("Error fetching remote data:", error));
     });
