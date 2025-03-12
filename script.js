@@ -10,11 +10,6 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Toggle button not found!");
         return;
     }
-    
-    if (!video || !videoSource) {
-        console.error("Video or source not found!");
-        return;
-    }
 
     // Define video sources
     const videoDark = "videoOverlayPersonalPor.mp4";
@@ -42,14 +37,17 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        // Change the video source dynamically
-        const newVideoSrc = theme === "dark" ? videoDark : videoLight;
+        if (video && videoSource) {
+            const newVideoSrc = theme === "dark" ? videoDark : videoLight;
 
-        if (videoSource.getAttribute("src") !== newVideoSrc) {
-            videoSource.setAttribute("src", newVideoSrc);
-            video.load(); 
-            video.play(); 
+            if (videoSource.getAttribute("src") !== newVideoSrc) {
+                videoSource.setAttribute("src", newVideoSrc);
+                video.load(); 
+                video.play(); 
         }
+        }
+
+        // Change the video source dynamically
     }
     const projectContainer = document.getElementById("project-container");
     const loadLocalBtn = document.getElementById("loadLocal");

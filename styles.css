@@ -364,3 +364,11 @@ output {
     background-color: var(--flash-error, #ffdddd);
     transition: background-color 0.3s ease-in-out;
 }
+
+#project-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 50px;
+    padding: 50px;
+}
