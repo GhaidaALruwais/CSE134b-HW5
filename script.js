@@ -47,7 +47,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         }
 
-        // Change the video source dynamically
     }
     const projectContainer = document.getElementById("project-container");
     const loadLocalBtn = document.getElementById("loadLocal");
